@@ -1,0 +1,3 @@
+para rodar o bando de dados
+
+	- docker-compose up db
