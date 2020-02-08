@@ -33,6 +33,7 @@ hs_err_pid*
 .settings
 .springBeans
 .sts4-cache
+.sts4-cache
 
 ### IntelliJ IDEA ###
 .idea
@@ -45,3 +46,4 @@ hs_err_pid*
 /build/
 /nbbuild/
 /dist/
+
