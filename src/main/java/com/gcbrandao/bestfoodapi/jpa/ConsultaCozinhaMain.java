@@ -2,6 +2,7 @@ package com.gcbrandao.bestfoodapi.jpa;
 
 import com.gcbrandao.bestfoodapi.BestFoodApiApplication;
 import com.gcbrandao.bestfoodapi.domain.model.Cozinha;
+import com.gcbrandao.bestfoodapi.domain.repository.CozinhaRepository;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
@@ -15,8 +16,8 @@ public class ConsultaCozinhaMain {
                 .web(WebApplicationType.NONE)
                 .run(args);
 
-        CadastroCozinha cadastroCozinha = applicationContext.getBean(CadastroCozinha.class);
-        List<Cozinha> lista =  cadastroCozinha.listar();
+        CozinhaRepository cadastroCozinha = applicationContext.getBean(CozinhaRepository.class);
+        List<Cozinha> lista =  cadastroCozinha.list();
 
         for (Cozinha cozinha: lista) {
             System.out.println(cozinha.getNome());

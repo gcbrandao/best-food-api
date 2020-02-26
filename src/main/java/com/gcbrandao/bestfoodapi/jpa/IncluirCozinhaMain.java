@@ -2,6 +2,7 @@ package com.gcbrandao.bestfoodapi.jpa;
 
 import com.gcbrandao.bestfoodapi.BestFoodApiApplication;
 import com.gcbrandao.bestfoodapi.domain.model.Cozinha;
+import com.gcbrandao.bestfoodapi.domain.repository.CozinhaRepository;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
@@ -23,9 +24,9 @@ public class IncluirCozinhaMain {
         cozinha2.setNome("Japa");
 
 
-        CadastroCozinha cadastroCozinha = applicationContext.getBean(CadastroCozinha.class);
+        CozinhaRepository cadastroCozinha = applicationContext.getBean(CozinhaRepository.class);
 
-        cadastroCozinha.addCozinha(cozinha);
-        cadastroCozinha.addCozinha(cozinha2);
+        cadastroCozinha.save(cozinha);
+        cadastroCozinha.save(cozinha2);
     }
 }
