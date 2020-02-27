@@ -1,5 +1,7 @@
 package com.gcbrandao.bestfoodapi.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,6 +20,8 @@ public class Cozinha {
 	@EqualsAndHashCode.Include
 	private Long id;
 
+	//@JsonProperty("titulo") // para mudar somente o nome do atributo no retorno
+	// @JsonIgnore // para ignorar a propriedade
 	@Column(nullable = false)
 	private String nome;
 

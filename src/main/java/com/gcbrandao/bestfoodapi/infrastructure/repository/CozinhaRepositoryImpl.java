@@ -2,6 +2,7 @@ package com.gcbrandao.bestfoodapi.infrastructure.repository;
 
 import com.gcbrandao.bestfoodapi.domain.model.Cozinha;
 import com.gcbrandao.bestfoodapi.domain.repository.CozinhaRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
@@ -38,8 +39,11 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
 
     @Override
     @Transactional
-    public void remove(Cozinha cozinha) {
-        cozinha = find(cozinha.getId());
+    public void remove(Long id) {
+        Cozinha cozinha = find(id);
+        if (cozinha == null){
+            throw new EmptyResultDataAccessException(1);
+        }
         manager.remove(cozinha);
     }
 
