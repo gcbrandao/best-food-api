@@ -1,6 +1,5 @@
 package com.gcbrandao.bestfoodapi.infrastructure.repository;
 
-import com.gcbrandao.bestfoodapi.domain.model.Cozinha;
 import com.gcbrandao.bestfoodapi.domain.model.Restaurante;
 import com.gcbrandao.bestfoodapi.domain.repository.RestauranteRepository;
 import org.springframework.stereotype.Component;

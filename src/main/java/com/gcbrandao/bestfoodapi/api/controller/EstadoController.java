@@ -22,16 +22,16 @@ public class EstadoController {
 
 
     @GetMapping
-    public ResponseEntity<List<Estado>> listar(){
+    public ResponseEntity<List<Estado>> listar() {
 
         return ResponseEntity.status(HttpStatus.OK).body(cadastroEstadoService.list());
     }
 
     @GetMapping("{estadoID}")
-    public ResponseEntity<Estado> buscar(@PathVariable Long estadoID){
+    public ResponseEntity<Estado> buscar(@PathVariable Long estadoID) {
 
         Estado estado = cadastroEstadoService.buscar(estadoID);
-        if (estado != null){
+        if (estado != null) {
             return ResponseEntity.ok(estado);
         }
         return ResponseEntity.notFound().build();
@@ -40,14 +40,14 @@ public class EstadoController {
 
 
     @PostMapping
-    public ResponseEntity<Estado> save(@RequestBody Estado estado){
+    public ResponseEntity<Estado> save(@RequestBody Estado estado) {
         Estado estadoSaved = estadoRepository.save(estado);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(estado);
     }
 
     @DeleteMapping("estadoID")
-    public void delete(@PathVariable Long estadoID){
+    public void delete(@PathVariable Long estadoID) {
         Estado estado = estadoRepository.find(estadoID);
 
     }

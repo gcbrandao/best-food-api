@@ -42,14 +42,14 @@ public class CadastroEstadoService {
         }
     }
 
-    public List<Estado> list(){
+    public List<Estado> list() {
         return estadoRepository.list();
     }
 
-    public Estado buscar(Long estadoID){
+    public Estado buscar(Long estadoID) {
 
         Estado estado = estadoRepository.find(estadoID);
-        if (estado != null){
+        if (estado != null) {
             return estado;
         }
         throw new EntidadeNaoEncontradaException(String.format("Estado com ID %d não encontrado !!!", estadoID));

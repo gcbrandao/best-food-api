@@ -2,8 +2,6 @@ package com.gcbrandao.bestfoodapi.api.controller;
 
 import com.gcbrandao.bestfoodapi.domain.model.Cidade;
 import com.gcbrandao.bestfoodapi.domain.repository.CidadeRepository;
-import com.gcbrandao.bestfoodapi.domain.repository.CidadeRepository;
-import com.gcbrandao.bestfoodapi.domain.service.CadastroCidadeService;
 import com.gcbrandao.bestfoodapi.domain.service.CadastroCidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,16 +22,16 @@ public class CidadeController {
 
 
     @GetMapping
-    public ResponseEntity<List<Cidade>> listar(){
+    public ResponseEntity<List<Cidade>> listar() {
 
         return ResponseEntity.status(HttpStatus.OK).body(cadastroCidadeService.list());
     }
 
     @GetMapping("{cidadeID}")
-    public ResponseEntity<Cidade> buscar(@PathVariable Long cidadeID){
+    public ResponseEntity<Cidade> buscar(@PathVariable Long cidadeID) {
 
         Cidade cidade = cadastroCidadeService.buscar(cidadeID);
-        if (cidade != null){
+        if (cidade != null) {
             return ResponseEntity.ok(cidade);
         }
         return ResponseEntity.notFound().build();
@@ -42,14 +40,14 @@ public class CidadeController {
 
 
     @PostMapping
-    public ResponseEntity<Cidade> save(@RequestBody Cidade cidade){
+    public ResponseEntity<Cidade> save(@RequestBody Cidade cidade) {
         Cidade cidadeSaved = cidadeRepository.save(cidade);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(cidade);
     }
 
     @DeleteMapping("cidadeID")
-    public void delete(@PathVariable Long cidadeID){
+    public void delete(@PathVariable Long cidadeID) {
         Cidade cidade = cidadeRepository.find(cidadeID);
 
     }

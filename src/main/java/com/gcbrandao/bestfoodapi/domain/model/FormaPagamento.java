@@ -11,12 +11,12 @@ import javax.persistence.*;
 @Table(name = "forma_pagamento")
 public class FormaPagamento {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@EqualsAndHashCode.Include
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
+    private Long id;
 
-	@Column(nullable = false)
-	private String descricao;
+    @Column(nullable = false)
+    private String descricao;
 
 }
