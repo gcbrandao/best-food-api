@@ -1,17 +1,8 @@
 package com.gcbrandao.bestfoodapi.domain.repository;
 
 import com.gcbrandao.bestfoodapi.domain.model.FormaPagamento;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface FormaPagamentoRepository {
-
-    List<FormaPagamento> list();
-
-    FormaPagamento find(Long id);
-
-    FormaPagamento save(FormaPagamento formaPagamento);
-
-    void remove(FormaPagamento formaPagamento);
+public interface FormaPagamentoRepository extends JpaRepository<FormaPagamento, Long> {
 
 }

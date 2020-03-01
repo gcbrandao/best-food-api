@@ -8,6 +8,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ConsultaRestauranteMain {
 
@@ -17,14 +18,14 @@ public class ConsultaRestauranteMain {
                 .run(args);
 
         RestauranteRepository restauranteRepository = applicationContext.getBean(RestauranteRepository.class);
-        List<Restaurante> lista = restauranteRepository.list();
+        List<Restaurante> lista = restauranteRepository.findAll();
 
         for (Restaurante restaurante : lista) {
             System.out.printf("%s - %f - %s     \n", restaurante.getNome(), restaurante.getTaxaFrete(), restaurante.getCozinha().getNome());
         }
 
-        Restaurante restauranteGet = restauranteRepository.find(1L);
-        System.out.println(restauranteGet.getNome());
+        Optional<Restaurante> restauranteGet = restauranteRepository.findById(1L);
+        System.out.println(restauranteGet.get().getNome());
 
 
     }

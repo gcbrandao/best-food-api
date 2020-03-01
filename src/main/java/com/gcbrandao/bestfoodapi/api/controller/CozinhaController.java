@@ -57,11 +57,11 @@ public class CozinhaController {
 
     @PutMapping("/{cozinhaId}")
     ResponseEntity<Cozinha> update(@PathVariable Long cozinhaId, @RequestBody Cozinha cozinha) {
-         Optional<Cozinha> cozinhaAtual = cozinhaRepository.findById(cozinhaId);
+        Optional<Cozinha> cozinhaAtual = cozinhaRepository.findById(cozinhaId);
 
         if (cozinhaAtual.isPresent()) {
             BeanUtils.copyProperties(cozinha, cozinhaAtual.get(), "id");
-            Cozinha cozinhaSalva =  cadastroCozinhaService.save(cozinhaAtual.get());
+            Cozinha cozinhaSalva = cadastroCozinhaService.save(cozinhaAtual.get());
             return ResponseEntity.ok(cozinhaSalva);
 
         }

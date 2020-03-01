@@ -1,17 +1,8 @@
 package com.gcbrandao.bestfoodapi.domain.repository;
 
 import com.gcbrandao.bestfoodapi.domain.model.Cidade;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface CidadeRepository {
-
-    List<Cidade> list();
-
-    Cidade find(Long id);
-
-    Cidade save(Cidade cidade);
-
-    void remove(Cidade cidade);
+public interface CidadeRepository extends JpaRepository<Cidade, Long> {
 
 }

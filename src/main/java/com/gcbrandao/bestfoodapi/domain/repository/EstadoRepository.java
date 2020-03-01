@@ -1,17 +1,7 @@
 package com.gcbrandao.bestfoodapi.domain.repository;
 
 import com.gcbrandao.bestfoodapi.domain.model.Estado;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface EstadoRepository {
-
-    List<Estado> list();
-
-    Estado find(Long id);
-
-    Estado save(Estado estado);
-
-    void remove(Estado estado);
-
+public interface EstadoRepository extends JpaRepository<Estado, Long> {
 }

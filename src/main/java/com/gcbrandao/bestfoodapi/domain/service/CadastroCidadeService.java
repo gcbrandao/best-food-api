@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CadastroCidadeService {
@@ -21,36 +22,36 @@ public class CadastroCidadeService {
 
     public void delete(Long cidadeID) {
 
-        Cidade cidade = cidadeRepository.find(cidadeID);
+        Optional<Cidade> cidade = cidadeRepository.findById(cidadeID);
 
-        if (cidade != null) {
-            cidadeRepository.remove(cidade);
+        if (cidade.isPresent()) {
+            cidadeRepository.delete(cidade.get());
         } else {
             throw new EntidadeNaoEncontradaException(String.format("Cidade com o ID %d não enconrtado", cidadeID));
         }
     }
 
     public Cidade update(Cidade cidade) {
-        Cidade cidadeOld = cidadeRepository.find(cidade.getId());
+        Optional<Cidade> cidadeOld = cidadeRepository.findById(cidade.getId());
 
-        if (cidadeOld != null) {
-            BeanUtils.copyProperties(cidade, cidadeOld, "id");
+        if (cidadeOld.isPresent()) {
+            BeanUtils.copyProperties(cidade, cidadeOld.get(), "id");
 
-            return cidadeRepository.save(cidadeOld);
+            return cidadeRepository.save(cidadeOld.get());
         } else {
             throw new EntidadeNaoEncontradaException(String.format("Cidade com o ID %d não enconrada!!", cidade.getId()));
         }
     }
 
     public List<Cidade> list() {
-        return cidadeRepository.list();
+        return cidadeRepository.findAll();
     }
 
     public Cidade buscar(Long cidadeID) {
 
-        Cidade cidade = cidadeRepository.find(cidadeID);
-        if (cidade != null) {
-            return cidade;
+        Optional<Cidade> cidade = cidadeRepository.findById(cidadeID);
+        if (cidade.isPresent()) {
+            return cidade.get();
         }
         throw new EntidadeNaoEncontradaException(String.format("Cidade com ID %d não encontrado !!!", cidadeID));
 

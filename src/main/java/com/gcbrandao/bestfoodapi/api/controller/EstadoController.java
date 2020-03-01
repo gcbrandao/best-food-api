@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/estados")
@@ -47,7 +48,7 @@ public class EstadoController {
 
     @DeleteMapping("/{estadoID}")
     public ResponseEntity<Estado> delete(@PathVariable Long estadoID) {
-        Estado estado = estadoRepository.find(estadoID);
+        Optional<Estado> estado = estadoRepository.findById(estadoID);
 
         return ResponseEntity.noContent().build();
 

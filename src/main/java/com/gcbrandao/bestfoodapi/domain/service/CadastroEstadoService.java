@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CadastroEstadoService {
@@ -21,36 +22,30 @@ public class CadastroEstadoService {
 
     public void delete(Long estadoID) {
 
-        Estado estado = estadoRepository.find(estadoID);
+        Estado estado = estadoRepository.findById(estadoID)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format("Estado com o ID %d não enconrtado", estadoID)));
 
-        if (estado != null) {
-            estadoRepository.remove(estado);
-        } else {
-            throw new EntidadeNaoEncontradaException(String.format("Estado com o ID %d não enconrtado", estadoID));
-        }
+        estadoRepository.delete(estado);
     }
 
     public Estado update(Estado estado) {
-        Estado estadoOld = estadoRepository.find(estado.getId());
+        Estado estadoOld = estadoRepository.findById(estado.getId())
+                .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format("Estado com o ID %d não enconrado!!", estado.getId())));
 
-        if (estadoOld != null) {
-            BeanUtils.copyProperties(estado, estadoOld, "id");
+        BeanUtils.copyProperties(estado, estadoOld, "id");
 
-            return estadoRepository.save(estadoOld);
-        } else {
-            throw new EntidadeNaoEncontradaException(String.format("Estado com o ID %d não enconrado!!", estado.getId()));
-        }
+        return estadoRepository.save(estadoOld);
     }
 
     public List<Estado> list() {
-        return estadoRepository.list();
+        return estadoRepository.findAll();
     }
 
     public Estado buscar(Long estadoID) {
 
-        Estado estado = estadoRepository.find(estadoID);
-        if (estado != null) {
-            return estado;
+        Optional<Estado> estado = estadoRepository.findById(estadoID);
+        if (estado.isPresent()) {
+            return estado.get();
         }
         throw new EntidadeNaoEncontradaException(String.format("Estado com ID %d não encontrado !!!", estadoID));
 

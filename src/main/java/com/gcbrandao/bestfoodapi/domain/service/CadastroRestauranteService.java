@@ -31,11 +31,9 @@ public class CadastroRestauranteService {
 
     public Restaurante update(Restaurante restaurante) {
         Long restauranteId = restaurante.getId();
-        Restaurante restauranteOld = restauranteRepository.find(restauranteId);
+        Restaurante restauranteOld = restauranteRepository.findById(restauranteId)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format("Restaurante de ID %d não encontrado!!", restauranteId)));
 
-        if (restauranteOld == null) {
-            throw new EntidadeNaoEncontradaException(String.format("Restaurante de ID %d não encontrado!!", restauranteId));
-        }
 
         Long cozinhaID = restaurante.getCozinha().getId();
         Cozinha cozinha = cozinhaRepository.findById(cozinhaID)
