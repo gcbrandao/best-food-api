@@ -1,8 +1,6 @@
 package com.gcbrandao.bestfoodapi.infrastructure.repository;
 
-import com.gcbrandao.bestfoodapi.domain.model.Cozinha;
 import com.gcbrandao.bestfoodapi.domain.model.FormaPagamento;
-import com.gcbrandao.bestfoodapi.domain.repository.CozinhaRepository;
 import com.gcbrandao.bestfoodapi.domain.repository.FormaPagamentoRepository;
 import org.springframework.stereotype.Component;
 

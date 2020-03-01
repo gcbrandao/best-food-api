@@ -1,7 +1,6 @@
 package com.gcbrandao.bestfoodapi.infrastructure.repository;
 
 import com.gcbrandao.bestfoodapi.domain.model.Estado;
-import com.gcbrandao.bestfoodapi.domain.model.Estado;
 import com.gcbrandao.bestfoodapi.domain.repository.EstadoRepository;
 import org.springframework.stereotype.Component;
 

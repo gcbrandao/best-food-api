@@ -1,6 +1,5 @@
 package com.gcbrandao.bestfoodapi.infrastructure.repository;
 
-import com.gcbrandao.bestfoodapi.domain.model.Cozinha;
 import com.gcbrandao.bestfoodapi.domain.model.Restaurante;
 import com.gcbrandao.bestfoodapi.domain.repository.RestauranteRepository;
 import org.springframework.stereotype.Component;
@@ -8,6 +7,7 @@ import org.springframework.stereotype.Component;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -31,11 +31,13 @@ public class RestauranteRepositoryImpl implements RestauranteRepository {
     }
 
     @Override
+    @Transactional
     public Restaurante save(Restaurante restaurante) {
         return manager.merge(restaurante);
     }
 
     @Override
+    @Transactional
     public void remove(Restaurante restaurante) {
 
         restaurante = find(restaurante.getId());
