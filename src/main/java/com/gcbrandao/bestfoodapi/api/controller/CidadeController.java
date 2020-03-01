@@ -27,7 +27,7 @@ public class CidadeController {
         return ResponseEntity.status(HttpStatus.OK).body(cadastroCidadeService.list());
     }
 
-    @GetMapping("{cidadeID}")
+    @GetMapping("/{cidadeID}")
     public ResponseEntity<Cidade> buscar(@PathVariable Long cidadeID) {
 
         Cidade cidade = cadastroCidadeService.buscar(cidadeID);
@@ -46,9 +46,9 @@ public class CidadeController {
         return ResponseEntity.status(HttpStatus.CREATED).body(cidade);
     }
 
-    @DeleteMapping("cidadeID")
-    public void delete(@PathVariable Long cidadeID) {
+    @DeleteMapping("/{cidadeID}")
+    public ResponseEntity<Cidade> delete(@PathVariable Long cidadeID) {
         Cidade cidade = cidadeRepository.find(cidadeID);
-
+        return ResponseEntity.noContent().build();
     }
 }
