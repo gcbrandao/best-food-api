@@ -47,4 +47,9 @@ public class TesteController {
         return restauranteRepository.findFirstByNomeContaining(nome);
     }
 
+    @GetMapping("/restaurantes/busca2-por-nome")
+    public List<Restaurante> buscaPorNome(String nome, Long cozinhaId){
+        return restauranteRepository.buscaPorNome(nome, cozinhaId);
+    }
+
 }
