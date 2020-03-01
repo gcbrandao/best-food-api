@@ -3,7 +3,7 @@ package com.gcbrandao.bestfoodapi.infrastructure.repository;
 import com.gcbrandao.bestfoodapi.domain.model.Cozinha;
 import com.gcbrandao.bestfoodapi.domain.repository.CozinhaRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,7 +11,7 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Component
+@Repository
 public class CozinhaRepositoryImpl implements CozinhaRepository {
 
 
@@ -32,6 +32,14 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
     }
 
     @Override
+    public List<Cozinha> findByName(String nome) {
+//        return manager.createQuery("from Cozinha where nome = :nome", Cozinha.class)
+//                .setParameter("nome", nome).getResultList();
+        return manager.createQuery("from Cozinha where nome like :nome", Cozinha.class)
+                .setParameter("nome", "%" + nome + "%").getResultList();
+    }
+
+    @Override
     @Transactional
     public Cozinha save(Cozinha cozinha) {
         return manager.merge(cozinha);
@@ -41,7 +49,7 @@ public class CozinhaRepositoryImpl implements CozinhaRepository {
     @Transactional
     public void remove(Long id) {
         Cozinha cozinha = find(id);
-        if (cozinha == null){
+        if (cozinha == null) {
             throw new EmptyResultDataAccessException(1);
         }
         manager.remove(cozinha);
