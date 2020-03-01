@@ -19,4 +19,6 @@ public interface RestauranteRepository extends JpaRepository<Restaurante, Long> 
 
     @Query("from Restaurante where nome like %:nome% and cozinha.id = :id")
     List<Restaurante> buscaPorNome(String nome, @Param("id") Long cozinha);
+
+    public List<Restaurante> find(String nome, BigDecimal taxaInicio, BigDecimal taxaFim);
 }

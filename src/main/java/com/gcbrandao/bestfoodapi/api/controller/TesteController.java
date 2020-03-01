@@ -52,4 +52,10 @@ public class TesteController {
         return restauranteRepository.buscaPorNome(nome, cozinhaId);
     }
 
+
+    @GetMapping("/restaurantes/busca-dinamica-por-nome")
+    public List<Restaurante> find(@RequestParam("nome") String nome, BigDecimal taxaInicial, BigDecimal taxaFinal){
+        return restauranteRepository.find(nome, taxaInicial, taxaFinal);
+
+    }
 }
