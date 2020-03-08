@@ -58,4 +58,16 @@ public class TesteController {
         return restauranteRepository.find(nome, taxaInicial, taxaFinal);
 
     }
+
+    @GetMapping("/restaurantes/busca-dinamica-api-manager")
+    public List<Restaurante> findUsingApi(String nome, BigDecimal taxaInicial, BigDecimal taxaFinal){
+        return restauranteRepository.findUsingAPI(nome, taxaInicial, taxaFinal);
+
+    }
+
+    @GetMapping("/restaurantes/busca-primeiro")
+    public Optional<Restaurante> findFirst(){
+        return restauranteRepository.buscarPrimeiro();
+
+    }
 }
