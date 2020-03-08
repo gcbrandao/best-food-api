@@ -54,7 +54,7 @@ public class TesteController {
 
 
     @GetMapping("/restaurantes/busca-dinamica-por-nome")
-    public List<Restaurante> find(@RequestParam("nome") String nome, BigDecimal taxaInicial, BigDecimal taxaFinal){
+    public List<Restaurante> find(String nome, BigDecimal taxaInicial, BigDecimal taxaFinal){
         return restauranteRepository.find(nome, taxaInicial, taxaFinal);
 
     }
