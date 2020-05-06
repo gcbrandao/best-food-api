@@ -8,6 +8,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 
 import java.util.List;
+import java.util.Optional;
 
 public class ConsultaCozinhaMain {
 
@@ -17,14 +18,14 @@ public class ConsultaCozinhaMain {
                 .run(args);
 
         CozinhaRepository cadastroCozinha = applicationContext.getBean(CozinhaRepository.class);
-        List<Cozinha> lista = cadastroCozinha.list();
+        List<Cozinha> lista = cadastroCozinha.findAll();
 
         for (Cozinha cozinha : lista) {
             System.out.println(cozinha.getNome());
         }
 
-        Cozinha cozinhaNew = cadastroCozinha.find(1L);
-        System.out.println(cozinhaNew.getNome());
+        Optional<Cozinha> cozinhaNew = cadastroCozinha.findById(1L);
+        System.out.println(cozinhaNew.get().getNome());
 
 
     }

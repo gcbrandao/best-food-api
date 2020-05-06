@@ -13,22 +13,24 @@ import org.springframework.stereotype.Service;
 public class CadastroCozinhaService {
 
     @Autowired
-    CozinhaRepository cozinhaRepository;
+    private CozinhaRepository cozinhaRepository;
 
-    public Cozinha save(Cozinha cozinha) {
+    public Cozinha salvar(Cozinha cozinha) {
         return cozinhaRepository.save(cozinha);
     }
 
     public void excluir(Long cozinhaId) {
         try {
-            cozinhaRepository.remove(cozinhaId);
+            cozinhaRepository.deleteById(cozinhaId);
 
-        } catch (EmptyResultDataAccessException ex) {
-            throw new EntidadeNaoEncontradaException(String.
-                    format("Não existe o cadastro de cozinha com o codigo %d", cozinhaId));
+        } catch (EmptyResultDataAccessException e) {
+            throw new EntidadeNaoEncontradaException(
+                    String.format("Não existe um cadastro de cozinha com código %d", cozinhaId));
+
         } catch (DataIntegrityViolationException e) {
-            throw new EntidadeEmUsoException(String.
-                    format("Cozinha de codigo %d nao pode ser removida pois etsta em uso", cozinhaId));
+            throw new EntidadeEmUsoException(
+                    String.format("Cozinha de código %d não pode ser removida, pois está em uso", cozinhaId));
         }
     }
+
 }

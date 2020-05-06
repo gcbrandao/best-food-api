@@ -1,17 +1,18 @@
 package com.gcbrandao.bestfoodapi.domain.repository;
 
 import com.gcbrandao.bestfoodapi.domain.model.Cozinha;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface CozinhaRepository {
+@Repository
+public interface CozinhaRepository extends CustomJpaRepository<Cozinha, Long> {
 
-    List<Cozinha> list();
+    List<Cozinha> findTodasByNomeContaining(String nome);
 
-    Cozinha find(Long id);
+    Optional<Cozinha> findByNome(String nome);
 
-    Cozinha save(Cozinha cozinha);
-
-    void remove(Long id);
+    boolean existsByNome(String nome);
 
 }

@@ -8,18 +8,18 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "cidade")
 public class Cidade {
 
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(nullable = false)
     private String nome;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Estado estado;
 
 }

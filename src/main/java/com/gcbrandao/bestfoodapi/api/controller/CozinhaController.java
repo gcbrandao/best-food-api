@@ -1,6 +1,5 @@
 package com.gcbrandao.bestfoodapi.api.controller;
 
-import com.gcbrandao.bestfoodapi.api.model.CozinhaXMLWrapper;
 import com.gcbrandao.bestfoodapi.domain.exception.EntidadeEmUsoException;
 import com.gcbrandao.bestfoodapi.domain.exception.EntidadeNaoEncontradaException;
 import com.gcbrandao.bestfoodapi.domain.model.Cozinha;
@@ -9,81 +8,72 @@ import com.gcbrandao.bestfoodapi.domain.service.CadastroCozinhaService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/cozinhas")
+@RequestMapping(value = "/cozinhas")
 public class CozinhaController {
 
     @Autowired
-    CozinhaRepository cozinhaRepository;
+    private CozinhaRepository cozinhaRepository;
 
     @Autowired
-    private CadastroCozinhaService cadastroCozinhaService;
+    private CadastroCozinhaService cadastroCozinha;
 
-
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
     public List<Cozinha> listar() {
-        return cozinhaRepository.list();
-    }
-
-
-    @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
-    public CozinhaXMLWrapper listarXML() {
-        return new CozinhaXMLWrapper(cozinhaRepository.list());
+        return cozinhaRepository.findAll();
     }
 
     @GetMapping("/{cozinhaId}")
     public ResponseEntity<Cozinha> buscar(@PathVariable Long cozinhaId) {
-        Cozinha cozinha = cozinhaRepository.find(cozinhaId);
+        Optional<Cozinha> cozinha = cozinhaRepository.findById(cozinhaId);
 
-        if (cozinha != null) {
-            //return  ResponseEntity.status(HttpStatus.OK).body(cozinha);
-            return ResponseEntity.ok(cozinha);
+        if (cozinha.isPresent()) {
+            return ResponseEntity.ok(cozinha.get());
         }
+
         return ResponseEntity.notFound().build();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cozinha add(@RequestBody Cozinha cozinha) {
-        return cadastroCozinhaService.save(cozinha);
+    public Cozinha adicionar(@RequestBody Cozinha cozinha) {
+        return cadastroCozinha.salvar(cozinha);
     }
 
     @PutMapping("/{cozinhaId}")
-    ResponseEntity<Cozinha> update(@PathVariable Long cozinhaId, @RequestBody Cozinha cozinha) {
-        Cozinha cozinhaAtual = cozinhaRepository.find(cozinhaId);
+    public ResponseEntity<Cozinha> atualizar(@PathVariable Long cozinhaId,
+                                             @RequestBody Cozinha cozinha) {
+        Optional<Cozinha> cozinhaAtual = cozinhaRepository.findById(cozinhaId);
 
-        if (cozinhaAtual != null) {
-            BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
-            cadastroCozinhaService.save(cozinhaAtual);
-            return ResponseEntity.ok(cozinhaAtual);
+        if (cozinhaAtual.isPresent()) {
+            BeanUtils.copyProperties(cozinha, cozinhaAtual.get(), "id");
 
+            Cozinha cozinhaSalva = cadastroCozinha.salvar(cozinhaAtual.get());
+            return ResponseEntity.ok(cozinhaSalva);
         }
-        return ResponseEntity.notFound().build();
 
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{cozinhaId}")
-    public ResponseEntity<Cozinha> remove(@PathVariable Long cozinhaId) {
-
+    public ResponseEntity<?> remover(@PathVariable Long cozinhaId) {
         try {
-
-            cadastroCozinhaService.excluir(cozinhaId);
-
+            cadastroCozinha.excluir(cozinhaId);
             return ResponseEntity.noContent().build();
 
-        } catch (EntidadeEmUsoException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         } catch (EntidadeNaoEncontradaException e) {
             return ResponseEntity.notFound().build();
+
+        } catch (EntidadeEmUsoException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(e.getMessage());
         }
-
     }
-
 
 }

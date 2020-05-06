@@ -1,17 +1,10 @@
 package com.gcbrandao.bestfoodapi.domain.repository;
 
 import com.gcbrandao.bestfoodapi.domain.model.Permissao;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
-public interface PermissaoRepository {
-
-    List<Permissao> list();
-
-    Permissao find(Long id);
-
-    Permissao save(Permissao permissao);
-
-    void remove(Permissao permissao);
+@Repository
+public interface PermissaoRepository extends JpaRepository<Permissao, Long> {
 
 }
