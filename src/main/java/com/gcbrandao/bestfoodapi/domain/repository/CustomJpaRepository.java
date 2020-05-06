@@ -1,4 +1,4 @@
-package com.gcbrandao.bestfoodapi.infrastructure.repository;
+package com.gcbrandao.bestfoodapi.domain.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
