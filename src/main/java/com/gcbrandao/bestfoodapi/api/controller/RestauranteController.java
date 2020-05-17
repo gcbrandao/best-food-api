@@ -29,7 +29,15 @@ public class RestauranteController {
 
     @GetMapping
     public List<Restaurante> listar() {
-        return restauranteRepository.findAll();
+        List<Restaurante> restauranteList = restauranteRepository.findAll();
+
+        System.out.println(restauranteList.get(0).getNome());
+        restauranteList.get(0).getFormasPagamento().forEach(System.out::println);
+
+        System.out.println(restauranteList.get(1).getNome());
+        restauranteList.get(1).getFormasPagamento().forEach(System.out::println);
+
+        return restauranteList;
     }
 
     @GetMapping("/{restauranteId}")
@@ -65,7 +73,7 @@ public class RestauranteController {
 
             if (restauranteAtual != null) {
                 BeanUtils.copyProperties(restaurante, restauranteAtual,
-                        "id", "formasPagamento", "endereco", "dataCadastro");
+                        "id", "formasPagamento", "endereco", "dataCadastro", "produtos");
 
                 restauranteAtual = cadastroRestaurante.salvar(restauranteAtual);
                 return ResponseEntity.ok(restauranteAtual);
