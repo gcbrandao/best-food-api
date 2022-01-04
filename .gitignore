@@ -40,6 +40,7 @@ hs_err_pid*
 *.iws
 *.iml
 *.ipr
+.DS_Store
 
 ### NetBeans ###
 /nbproject/private/

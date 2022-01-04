@@ -6,29 +6,26 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Produto {
+public class ItemPedido {
 
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String nome;
-
-    @Column(nullable = false)
-    private String descricao;
-
-    @Column(nullable = false)
-    private BigDecimal preco;
-
-    @Column(nullable = false)
-    private Boolean ativo;
+    private BigDecimal precoUnitario;
+    private BigDecimal precoTotal;
+    private Integer quantidade;
+    private String observacao;
 
     @ManyToOne
-    private Restaurante restaurante;
+    @JoinColumn(nullable = false)
+    private Pedido pedido;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Produto produto;
 }
