@@ -1,3 +1,12 @@
 para rodar o bando de dados
 
 	- docker-compose up db
+
+-=-=-=-=-=-=-
+
+Para fazer um dump (backup dos dados) do database "bestfood" no MySQL, use o seguinte comando:
+
+mysqldump --host localhost --user root --password --databases bestfood > dump.sql
+Para criar o database "bestfood" a partir do dump, execute o comando:
+
+mysql --host localhost --user root --password < dump.sql
