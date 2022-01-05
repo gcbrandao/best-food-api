@@ -1,5 +1,6 @@
 package com.gcbrandao.bestfoodapi.api.controller;
 
+import com.gcbrandao.bestfoodapi.domain.exception.EntidadeNaoEncontradaException;
 import com.gcbrandao.bestfoodapi.domain.model.Cozinha;
 import com.gcbrandao.bestfoodapi.domain.repository.CozinhaRepository;
 import com.gcbrandao.bestfoodapi.domain.service.CadastroCozinhaService;
@@ -28,14 +29,8 @@ public class CozinhaController {
     }
 
     @GetMapping("/{cozinhaId}")
-    public ResponseEntity<Cozinha> buscar(@PathVariable Long cozinhaId) {
-        Optional<Cozinha> cozinha = cozinhaRepository.findById(cozinhaId);
-
-        if (cozinha.isPresent()) {
-            return ResponseEntity.ok(cozinha.get());
-        }
-
-        return ResponseEntity.notFound().build();
+    public Cozinha buscar(@PathVariable Long cozinhaId) {
+        return cadastroCozinha.buscarOuFalhar(cozinhaId);
     }
 
     @PostMapping
@@ -45,18 +40,13 @@ public class CozinhaController {
     }
 
     @PutMapping("/{cozinhaId}")
-    public ResponseEntity<Cozinha> atualizar(@PathVariable Long cozinhaId,
-                                             @RequestBody Cozinha cozinha) {
-        Optional<Cozinha> cozinhaAtual = cozinhaRepository.findById(cozinhaId);
+    public Cozinha atualizar(@PathVariable Long cozinhaId,
+                             @RequestBody Cozinha cozinha) {
+        Cozinha cozinhaAtual = cadastroCozinha.buscarOuFalhar(cozinhaId);
 
-        if (cozinhaAtual.isPresent()) {
-            BeanUtils.copyProperties(cozinha, cozinhaAtual.get(), "id");
+        BeanUtils.copyProperties(cozinha, cozinhaAtual, "id");
 
-            Cozinha cozinhaSalva = cadastroCozinha.salvar(cozinhaAtual.get());
-            return ResponseEntity.ok(cozinhaSalva);
-        }
-
-        return ResponseEntity.notFound().build();
+        return cadastroCozinha.salvar(cozinhaAtual);
     }
 
     @DeleteMapping("/{cozinhaId}")
@@ -64,5 +54,4 @@ public class CozinhaController {
     public void remover(@PathVariable Long cozinhaId) {
         cadastroCozinha.excluir(cozinhaId);
     }
-
 }
