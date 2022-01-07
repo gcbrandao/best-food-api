@@ -1,17 +1,14 @@
 package com.gcbrandao.bestfoodapi.api.controller;
 
-import com.gcbrandao.bestfoodapi.domain.exception.EntidadeNaoEncontradaException;
 import com.gcbrandao.bestfoodapi.domain.model.Cozinha;
 import com.gcbrandao.bestfoodapi.domain.repository.CozinhaRepository;
 import com.gcbrandao.bestfoodapi.domain.service.CadastroCozinhaService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/cozinhas")
